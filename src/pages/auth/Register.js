@@ -1,13 +1,16 @@
 import { useState } from "react";
-import Jumbotron from "../components/cards/Jumbotron";
+import Jumbotron from "../../components/cards/Jumbotron";
 import axios from "axios";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
+import { useAuth } from "../../context/auth";
 
 export default function Register() {
   // state
   const [name, setName] = useState("ronnie");
   const [email, setEmail] = useState("ronnie@gmail.com");
   const [password, setPassword] = useState("password");
+  // hooks
+  const [auth, setAuth] = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,18 +26,19 @@ export default function Register() {
       if(data?.error){
         toast.error(data.error);
       } else {
+        localStorage.setItem("auth", JSON.stringify(data));
+        setAuth({...auth, token: data.token, user: data.user });
         toast.success("Registration successful");
       }
     } catch (err) {
       console.log(err);
-      Toaster.error('Registration failed. Try again.')
+      toast.error('Registration failed. Try again.')
     }
   }
 
   return (
     <div>
       <Jumbotron title="Register" subTitle="Create an account with us!"/>
-      <Toaster />
       <div className="container mt-5">
         <div className="row">
           <div className="col-md-6 offset-md-3">
