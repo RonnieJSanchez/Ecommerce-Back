@@ -21,12 +21,6 @@ export default function Menu() {
                     HOME
                 </NavLink>
             </li>
-
-            <li className="nav-item">
-                <NavLink className="nav-link" aria-current="page" to="/dashboard/secret">
-                    SECRET
-                </NavLink>
-            </li>
         {/* if user is already logged in hide the login and register links */}
             {!auth?.user ? (
             <>
@@ -42,11 +36,34 @@ export default function Menu() {
                 </li>
             </>
             ) : (
-                <li className="nav-item pointer">
-                    <a onClick={logout} className="nav-link">
-                        LOGOUT
+                <div className="dropdown">
+                
+                <li>
+                    <a className="nav-link pointer dropdown-toggle" 
+                        data-bs-toggle="dropdown"
+                    >
+                        {auth?.user?.name}
                     </a>
-            </li>
+                 <ul className="dropdown-menu">
+                    <li>
+                        <NavLink 
+                            className="nav-link" 
+                            to={`/dashboard/${
+                                auth?.user?.role === 1 ? "admin" : "user"
+                            }`}
+                        >
+                            Dashboard
+                        </NavLink>
+                    </li>
+
+                    <li className="nav-item pointer">
+                        <a onClick={logout} className="nav-link">
+                        Logout
+                        </a>
+                    </li>
+                 </ul>
+                </li>
+            </div>
             )}
         </ul>
     </>

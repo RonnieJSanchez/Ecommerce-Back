@@ -2,13 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import loadingGIF from "../../images/loading.gif"
 
-export default function Loading() {
+export default function Loading({path = "login" }) {
     //state
     const [count, setCount] = useState(3);
     //hooks
     const navigate = useNavigate();
     const location = useLocation();
-    console.log(location);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -16,8 +15,8 @@ export default function Loading() {
         }, 1000)
         // redirect once count is equal to 0
         count === 0 && 
-            navigate("/login", {
-            state: location.pathname,
+            navigate(`/${path}`, {
+                state: location.pathname,
             });
         // cleanup
         return ()  => clearInterval(interval);
