@@ -10,7 +10,7 @@ export default function Menu() {
     const logout = () => {
         setAuth({...auth, user: null, token: ""});
         localStorage.removeItem("auth");
-        Navigate("/login")
+        navigate("/login")
     };
 
     return ( 
@@ -19,6 +19,12 @@ export default function Menu() {
             <li className="nav-item">
                 <NavLink className="nav-link" aria-current="page" to="/">
                     HOME
+                </NavLink>
+            </li>
+
+            <li className="nav-item">
+                <NavLink className="nav-link" aria-current="page" to="/dashboard/secret">
+                    SECRET
                 </NavLink>
             </li>
         {/* if user is already logged in hide the login and register links */}
