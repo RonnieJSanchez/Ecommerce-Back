@@ -8,7 +8,7 @@ const AuthProvider = ({children}) => {
         token: "",
     });
 
-  useEffect(() => {
+useEffect(() => {
     const data = localStorage.getItem("auth");
     if (data) {
       const parsed = JSON.parse(data);
