@@ -4,6 +4,8 @@ import Jumbotron from "../../components/cards/Jumbotron";
 import AdminMenu from "../../components/nav/AdminMenu";
 import axios from "axios";
 import { Select } from 'antd';
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const { Option } = Select;
 
@@ -19,6 +21,8 @@ export default function AdminProduct () {
     const [category, setCategory] = useState("");
     const [shipping, setShipping] = useState("");
     const [quantity, setQuantity] = useState("");
+    // hook
+    const navigate = useNavigate();
 
     useEffect(( ) => {
       loadCategories();
@@ -36,9 +40,25 @@ export default function AdminProduct () {
 const handleSubmit = async (e) => {
   e.preventDefault();
   try {
-    console.log(name, description, price, shipping, quantity, category, photo);
+    const productData = new FormData();
+    productData.append("photo", photo);
+    productData.append("name", name);
+    productData.append("description", description);
+    productData.append("price", price);
+    productData.append("category", category);
+    productData.append("shipping", shipping);
+    productData.append("quantity", quantity);
+
+    const {data} = await axios.post('/product', productData);
+    if(data?.error) {
+      toast.error(data.error)
+    } else {
+      toast.success( `"${data.name}" is created`);
+      navigate("/dashboard/admin/products");
+    }
   } catch (err) {
-    //
+    console.log(err)
+    toast.error("Product create failed. Try again.")
   }
 };
 
@@ -106,7 +126,7 @@ const handleSubmit = async (e) => {
               />
 
               <Select
-                showSearch
+                //showSearch
                 boardered={false} 
                 size="large" 
                 className="form-select mb-3" 
@@ -114,7 +134,7 @@ const handleSubmit = async (e) => {
                 onChange={(value) => setCategory(value)}
               >
                 {categories?.map((c) =>(
-                   <Option key={c._id} value={c.name}>
+                   <Option key={c._id} value={c._id}>
                     {c.name}
                   </Option>
                 ))}
