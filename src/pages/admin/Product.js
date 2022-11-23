@@ -133,7 +133,7 @@ const handleSubmit = async (e) => {
                 placeholder="Choose category" 
                 onChange={(value) => setCategory(value)}
               >
-                {categories?.map((c) =>(
+                {categories?.map((c) => (
                    <Option key={c._id} value={c._id}>
                     {c.name}
                   </Option>

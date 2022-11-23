@@ -8,19 +8,21 @@ export default function AdminMenu() {
                 <ul className="list-group list-unstyled">
                   <li>
                     <NavLink 
-                      className="list-group-item" 
-                      to="/dashboard/admin/category"
-                    >
+                      className="list-group-item" to="/dashboard/admin/category">
                       Create Category
                     </NavLink>
                   </li>
                                     
                   <li>
                     <NavLink 
-                      className="list-group-item" 
-                      to="/dashboard/admin/product"
-                    >
+                      className="list-group-item" to="/dashboard/admin/product">
                       Create Product
+                    </NavLink>
+                  </li>
+
+                  <li>
+                    <NavLink className="list-group-item" to="/dashboard/admin/products">
+                      Products
                     </NavLink>
                   </li>
                 </ul>
