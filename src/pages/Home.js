@@ -26,7 +26,7 @@ export default function Home() {
     <div>
       <Jumbotron title="RachelleRachelle" subTitle="Lets Grow!"/>
 
-      <div className="row">
+      <div className="row p-5">
         <div className="col-md-6">
           <h2 className="p-3 mt-2 h4 bg-light text-center">
             New Arrivals

@@ -21,6 +21,12 @@ export default function Menu() {
                     HOME
                 </NavLink>
             </li>
+
+            <li className="nav-item">
+                <NavLink className="nav-link" aria-current="page" to="/shop">
+                    SHOP
+                </NavLink>
+            </li>
         {/* if user is already logged in hide the login and register links */}
             {!auth?.user ? (
             <>
