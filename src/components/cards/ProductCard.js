@@ -32,7 +32,7 @@ export default function ProductCard({ p }) {
                 </button>
 
                 <button 
-                className="btn btn-outline-primary col card-button"
+                className="btn btn-outline-info col card-button"
                 style={{borderBottomRightRadius: "5px"}}
                 >
                     Add to Cart
