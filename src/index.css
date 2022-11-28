@@ -1,3 +1,11 @@
+button.btn.btn-warning.btn-lg {
+  --bs-btn-color: #fff;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  -webkit-animation: Gradient 15s ease infinite;
+  -moz-animation: Gradient 15s ease infinite;
+  animation: Gradient 15s ease infinite;
+}
 .active {
   text-decoration: underline !important;
   text-decoration-thickness: 5px !important;
@@ -12,13 +20,18 @@
 }
 
 .hoverable:hover {
-  border-right: 5px solid #ee7752;
-  border-bottom: 5px solid #ee7752;
+  border-right: 5px solid #23a6d5;
+  border-bottom: 5px solid #23a6d5;
   border-radius: 12px;
 }
 
 .ant-checkbox-wrapper:first-of-type {
   margin-left: 8px;
+}
+
+.form-control {
+  -webkit-box-shadow: none !important;
+  outline: -webkit-focus-ring-color auto 0px !important;
 }
 
 .btn-primary {
@@ -41,7 +54,7 @@
 /* jumbotron color animation css */
 .jumbotron {
   width: 30wh;
-  height: 30vh;
+  height: 25vh;
   color: #fff;
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   background-size: 400% 400%;
