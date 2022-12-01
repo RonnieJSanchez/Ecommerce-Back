@@ -1,12 +1,19 @@
-import moment from "moment";
-import { Badge, Card, Space } from 'antd';
+import { Badge } from 'antd';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function ProductCard({ p }) {
+const navigate = useNavigate()
+
     return (
         <div className="card mb-3 hoverable">
             <Badge.Ribbon text={`$${p?.price}`} color="pink">
                 <Badge.Ribbon 
-                    text={`${p?.quantity >= 1 ? 'In Stock' : 'Out of stock'}`}
+                    text={`${
+                        p?.quantity >= 1 
+                            ? 'In Stock' 
+                            : 'Out of stock'
+                    }`}
                     placement="start"
                     color="green"
                 >
@@ -27,6 +34,7 @@ export default function ProductCard({ p }) {
                 <button 
                     className="btn btn-primary col card-button" 
                     style={{borderBottomLeftRadius: "5px"}}
+                    onClick={() => navigate(`/product/${p.slug}`)}
                 >
                     View Product
                 </button>

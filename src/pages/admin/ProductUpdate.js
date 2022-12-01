@@ -79,7 +79,7 @@ export default function AdminProductUpdate() {
       }
     } catch (err) {
       console.log(err);
-      toast.error("Product update failed. Try again.");
+      toast.error("Product create failed. Try again.");
     }
   };
 
