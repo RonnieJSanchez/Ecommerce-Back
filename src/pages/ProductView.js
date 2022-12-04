@@ -14,9 +14,12 @@ import {
     FaRocket, 
 } from "react-icons/fa";
 import ProductCard from "../components/cards/ProductCard";
-
+import toast from "react-hot-toast";
+import { useCart } from "../context/cart";
 
 export default function ProductView() {
+    // context
+    const [cart, setCart] = useCart();
     //state
     const [product, setProduct] = useState({});
     const [related, setRelated] = useState([]);
@@ -92,8 +95,15 @@ export default function ProductView() {
                         </div>
 
                         <button 
-                            className="btn btn-outline-info col card-button"
-                            style={{borderBottomRightRadius: "5px"}}
+                            className="btn btn-outline-primary col card-button"
+                            style={{
+                                borderBottomRightRadius: "5px",
+                                borderBottomLeftRadius: "5px"
+                        }}
+                        onClick={() => {
+                            setCart([...cart, product]);
+                            toast.success("Added to cart");
+                        }}
                         >
                             Add to Cart
                         </button>
