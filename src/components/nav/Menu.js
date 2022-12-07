@@ -102,7 +102,7 @@ export default function Menu() {
                 className="nav-link pointer dropdown-toggle"
                 data-bs-toggle="dropdown"
               >
-                {auth?.user?.name?.toUpperCase()}
+                {auth?.user?.name}
               </a>
               <ul className="dropdown-menu">
                 <li>
