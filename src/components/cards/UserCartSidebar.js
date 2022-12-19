@@ -1,13 +1,35 @@
+import { useEffect, useState } from "react";
 import { useAuth } from "../../context/auth";
 import { useCart } from "../../context/cart";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import DropIn from "braintree-web-drop-in-react";
+import { toast } from "react-hot-toast";
 
 export default function UserCartSidebar() {
   // context
   const [auth, setAuth] = useAuth();
   const [cart, setCart] = useCart();
+  // state
+  const [clientToken, setClientToken] = useState("");
+  const [instance, setInstance] = useState("");
   // hooks
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (auth?.token) {
+      getClientToken();
+    }
+  }, [auth?.token]);
+
+  const getClientToken = async () => {
+    try {
+      const { data } = await axios.get("/braintree/token");
+      setClientToken(data.clientToken);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const cartTotal = () => {
     let total = 0;
@@ -20,8 +42,26 @@ export default function UserCartSidebar() {
     });
   };
 
+  const handleBuy = async () => {
+    try {
+      const { nonce } = await instance.requestPaymentMethod();
+      // console.log("nonce => ", nonce);
+      const { data } = await axios.post("/braintree/payment", {
+        nonce,
+        cart,
+      });
+      // console.log("handle buy response => ", data);
+      localStorage.removeItem("cart");
+      setCart([]);
+      navigate("/dashboard/user/orders");
+      toast.success("Payment Successful");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
-    <div className="col-md-4">
+    <div className="col-md-4 mb-5">
       <h4>Your cart summary</h4>
       Total / Address / Payments
       <hr />
@@ -30,7 +70,7 @@ export default function UserCartSidebar() {
         <>
           <div className="mb-3">
             <hr />
-            <h4>Address:</h4>
+            <h4>Delivery address:</h4>
             <h5>{auth?.user?.address}</h5>
           </div>
           <button
@@ -63,6 +103,30 @@ export default function UserCartSidebar() {
           )}
         </div>
       )}
+      <div className="mt-2">
+        {!clientToken || !cart?.length ? (
+          ""
+        ) : (
+          <>
+            <DropIn
+              options={{
+                authorization: clientToken,
+                paypal: {
+                  flow: "vault",
+                },
+              }}
+              onInstance={(instance) => setInstance(instance)}
+            />
+            <button
+              onClick={handleBuy}
+              className="btn btn-primary col-12"
+              disable={!auth?.user?.address || !instance}
+            >
+              Buy
+            </button>
+          </>
+        )}
+      </div>
     </div>
   );
 }

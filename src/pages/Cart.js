@@ -2,7 +2,6 @@ import { useAuth } from "../context/auth";
 import { useCart } from "../context/cart";
 import Jumbotron from "../components/cards/Jumbotron";
 import { useNavigate } from "react-router-dom";
-import moment from "moment";
 import UserCartSidebar from "../components/cards/UserCartSidebar";
 import ProductCardHorizontal from "../components/cards/ProductCardHorizontal";
 
@@ -12,14 +11,6 @@ export default function Cart() {
   const [auth, setAuth] = useAuth();
   //hooks
   const navigate = useNavigate();
-
-  const removeFromCart = (productId) => {
-    let myCart = [...cart];
-    let index = myCart.findIndex((item) => item._item === productId);
-    myCart.splice(index, 1);
-    setCart(myCart);
-    localStorage.setItem("cart", JSON.stringify(myCart));
-  };
 
   return (
     <>
@@ -61,7 +52,7 @@ export default function Cart() {
             <div className="col-md-8">
               <div className="row">
                 {cart?.map((p, index) => (
-                  <ProductCardHorizontal index={index} p={p} />
+                  <ProductCardHorizontal key={index} p={p} />
                 ))}
               </div>
             </div>

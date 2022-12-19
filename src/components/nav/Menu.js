@@ -14,7 +14,7 @@ export default function Menu() {
   const categories = useCategory();
   const navigate = useNavigate();
 
-  console.log("categories in menu =>", categories);
+  //console.log("categories in menu =>", categories);
 
   const logout = () => {
     setAuth({ ...auth, user: null, token: "" });

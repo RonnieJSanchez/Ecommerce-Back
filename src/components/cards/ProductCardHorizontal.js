@@ -1,7 +1,7 @@
 import moment from "moment";
 import { useCart } from "../../context/cart";
 
-export default function ProductCardHorizontal({ index, p }) {
+export default function ProductCardHorizontal({ p }) {
   // context
   const [cart, setCart] = useCart();
 
@@ -15,7 +15,6 @@ export default function ProductCardHorizontal({ index, p }) {
 
   return (
     <div
-      key={index}
       className="card mb-3"
       // style={{ maxWidth: 540 }}
     >
